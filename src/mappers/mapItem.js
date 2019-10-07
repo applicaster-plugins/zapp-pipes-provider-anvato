@@ -65,7 +65,17 @@ export function mapItem(
       } else if (nonFreeItems && nonFreeItems.indexOf(id) > -1) {
         free = false;
       }
-      const extensions = { free, auth_id, videoAds, duration };
+
+      const requires_authentication = !free;
+      const ds_product_ids = auth_id ? auth_id.split(',') : [];
+      const extensions = {
+        free,
+        auth_id,
+        videoAds,
+        duration,
+        requires_authentication,
+        ds_product_ids
+      };
 
       return {
         type: {

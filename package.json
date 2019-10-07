@@ -1,6 +1,6 @@
 {
   "name": "@applicaster/zapp-pipes-provider-hearst",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "data source provider for hearst",
   "main": "lib/index.js",
   "scripts": {
