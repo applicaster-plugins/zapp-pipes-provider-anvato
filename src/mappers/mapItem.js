@@ -1,97 +1,64 @@
-import {
-  getArrayFieldValue,
-  createMediaGroupItem,
-  getVideoSource
-} from '../utils';
+import { createMediaGroupItem } from '../utils';
 import moment from 'moment';
+import { config } from '../config';
 
-export function mapItem(
-  auth_id,
-  image_key = 'image_base',
-  _free = true,
-  freeItems = [],
-  nonFreeItems = []
-) {
-  return item => {
-    try {
-      const {
-        guid,
-        title: _title,
-        description: _summary,
-        pubDate: _published,
-        link: _link
-      } = item;
+export function mapItem(item) {
+  try {
+    const {
+      obj_id: id,
+      c_title_s: title,
+      c_description_s: summary,
+      c_ts_publish_l: _published,
+      u_site_link_s: _link,
+      media_url,
+      thumbnails
+    } = item;
 
-      const published = moment(
-        new Date(getArrayFieldValue(_published))
-      ).format();
+    const published = moment(new Date(_published)).format();
 
-      const id = getArrayFieldValue(guid, true)._;
-      const title = getArrayFieldValue(_title);
-      const summary = getArrayFieldValue(_summary);
+    let media_group = thumbnails
+      .map(imageItem => {
+        try {
+          const { url, role } = imageItem;
+          const key = config.imageKeyMapping[role]
+            ? config.imageKeyMapping[role]
+            : 'image_base';
+          return createMediaGroupItem(url, key);
+        } catch (err) {
+          return null;
+        }
+      })
+      .filter(i => i);
 
-      const images = item['media:thumbnail'][0];
+    const link = {
+      type: 'text/html',
+      rel: 'alternate',
+      href: _link
+    };
 
-      const imageKeys = [`url:${image_key}`];
-      let media_group = imageKeys
-        .map(imageKey => {
-          try {
-            const arr = imageKey.split(':');
-            if (images.$[arr[0]]) {
-              return createMediaGroupItem(images.$[arr[0]], arr[1]);
-            }
-          } catch (err) {
-            return null;
-          }
-        })
-        .filter(i => i);
+    const src = media_url;
+    const content = { src, type: 'video/hls' };
 
-      const link = {
-        type: 'text/html',
-        rel: 'alternate',
-        href: `hearst://play?voditemid=${id}`
-      };
+    let free = true;
 
-      const videos = item['media:group'][0]['media:content'].map(
-        video => video.$
-      );
-      const { src, duration } = getVideoSource(videos);
-      const content = { src, type: 'video/hls' };
-      const videoAds = [];
+    const extensions = {
+      free
+    };
 
-      let free = _free;
-      if (freeItems && freeItems.indexOf(id) > -1) {
-        free = true;
-      } else if (nonFreeItems && nonFreeItems.indexOf(id) > -1) {
-        free = false;
-      }
-
-      const requires_authentication = !free;
-      const ds_product_ids = auth_id ? auth_id.split(',') : [];
-      const extensions = {
-        free,
-        auth_id,
-        videoAds,
-        duration,
-        requires_authentication,
-        ds_product_ids
-      };
-
-      return {
-        type: {
-          value: 'video'
-        },
-        id,
-        title,
-        published,
-        summary,
-        media_group,
-        content,
-        link,
-        extensions
-      };
-    } catch (err) {
-      return {};
-    }
-  };
+    return {
+      type: {
+        value: 'video'
+      },
+      id,
+      title,
+      published,
+      summary,
+      media_group,
+      content,
+      link,
+      extensions
+    };
+  } catch (err) {
+    return {};
+  }
 }

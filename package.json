@@ -1,7 +1,7 @@
 {
-  "name": "@applicaster/zapp-pipes-provider-hearst",
-  "version": "2.0.4",
-  "description": "data source provider for hearst",
+  "name": "@applicaster/zapp-pipes-provider-anvato",
+  "version": "1.0.0",
+  "description": "data source provider for anvato",
   "main": "lib/index.js",
   "scripts": {
     "test": "node_modules/.bin/jest",
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/applicaster/zapp-pipes-provider-hearst.git"
+    "url": "git+ssh://git@github.com/applicaster-plugins/zapp-pipes-provider-anvato.git"
   },
   "keywords": [
     "applicaster",
@@ -23,9 +23,9 @@
   "author": "applicaster",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/applicaster/zapp-pipes-provider-hearst/issues"
+    "url": "https://github.com/applicaster-plugins/zapp-pipes-provider-anvato/issues"
   },
-  "homepage": "https://github.com/applicaster/zapp-pipes-provider-hearst#readme",
+  "homepage": "https://github.com/applicaster-plugins/zapp-pipes-provider-anvato#readme",
   "dependencies": {
     "axios": "^0.16.2",
     "moment": "^2.22.1",

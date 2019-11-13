@@ -1,4 +1,3 @@
-# zapp-pipes-provider-hearst
+# zapp-pipes-provider-anvato
 
-A datasource provider for hearst
-
+A datasource provider for anvato

@@ -1,17 +1,10 @@
 import axios from 'axios';
-import xml2js from 'xml2js-parser';
+import { config } from '../config';
 
-export async function feed(rss) {
+export async function feed() {
   try {
-    const response = await axios.get(rss);
-    const preserveChildrenOrder = true;
-    const explicitChildren = true;
-    const result = xml2js.parseStringSync(response.data, {
-      preserveChildrenOrder,
-      explicitChildren
-    });
-    return result;    
-  } catch (err) {
-
-  }
+    const response = await axios.get(config.api.baseUrl);
+    const result = response.data.docs;
+    return result;
+  } catch (err) {}
 }
