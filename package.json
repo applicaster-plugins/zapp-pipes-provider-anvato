@@ -1,6 +1,6 @@
 {
   "name": "@applicaster/zapp-pipes-provider-anvato",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "data source provider for anvato",
   "main": "lib/index.js",
   "scripts": {
