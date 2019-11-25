@@ -6,14 +6,14 @@
   "platform": null,
   "author_name": "Yaniv Solnik",
   "author_email": "y.solnik@applicaster.com",
-  "manifest_version": "0.0.1",
+  "manifest_version": "0.0.2",
   "name": "Anvato Datasource",
   "description": "Anvato datasource",
   "type": "data_source_provider",
   "identifier": "anvatods",
   "ui_builder_support": true,
   "dependency_name": "@applicaster/zapp-pipes-provider-anvato",
-  "dependency_version": "1.0.0",
+  "dependency_version": "1.0.1",
   "whitelisted_account_ids": ["5d5d4fb787d958000f018cc9"],
   "min_zapp_sdk": "4.0.0",
   "deprecated_since_zapp_sdk": "",
@@ -25,8 +25,8 @@
       "value": "feed",
       "documentation": {
         "link": "https://github.com/applicaster-plugins/zapp-pipes-provider-anvato/#readme",
-        "input_description": "",
-        "input_placeholder": "",
+        "input_description": "feed url",
+        "input_placeholder": "url",
         "input_description_image_url": ""
       }
     }
